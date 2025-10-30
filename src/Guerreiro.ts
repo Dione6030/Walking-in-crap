@@ -1,7 +1,7 @@
 import { fakerPT_BR as faker } from "@faker-js/faker";
 import { Personagem } from "./Personagem";
 
-export class Gerreiro extends Personagem {
+export class Guerreiro extends Personagem {
     constructor(nome: string) {
         super(nome);
         this.nome = nome + " Warrior";
