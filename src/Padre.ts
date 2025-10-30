@@ -41,6 +41,16 @@ export class Padre extends Personagem {
         return this._vidaMaxima;
     }
 
+    public atacar(this: Personagem, alvo: Personagem): string {
+        let numeroAleatorio = faker.number.int({ min: 0, max: 100 });
+        if (numeroAleatorio < 40 ) {
+            alvo.vidaAtual = 0;
+            return `${this.nome} converteu ${alvo.nome} para sua fé!`;
+        } else {
+            return `${this.nome} tentou converter ${alvo.nome}, mas falhou!`;
+        }
+    }
+
     public aprimorarAtaquePrincipal(): void {
         throw new Error("Este personagem não pode executar esta ação.");
     }

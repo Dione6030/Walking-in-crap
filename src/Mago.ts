@@ -47,6 +47,20 @@ export class Mago extends Personagem {
         return this._vidaMaxima;
     }
 
+    public atacar(this: Personagem, alvo: Personagem): string {
+        let numeroAleatorio = faker.number.int({ min: 0, max: 100 });
+        if (numeroAleatorio > alvo.esquiva && numeroAleatorio >= 70) {
+            const danoCausado = this.poderDeAtaque;
+            const danoFinal = danoCausado * (alvo.resistencia / 100);
+            alvo.vidaAtual -= danoFinal;
+            return `${this.nome} lançou um feitiço em ${alvo.nome} e causou ${danoFinal} de dano!`;
+        } else if (numeroAleatorio <= alvo.esquiva) {
+            return `${alvo.nome} esquivou do feitiço de ${this.nome}!`;
+        } else {
+            return `${this.nome} tentou lançar um feitiço em ${alvo.nome}, mas falhou!`;
+        }
+    }
+
     public aprimorarAtaquePrincipal(): void {
         this.habilidadeMental += this.habilidadeMental * 0.2;
     }

@@ -43,6 +43,17 @@ export class Guerreiro extends Personagem {
             this._vidaAtual = vida;
         }
     }
+    public atacar(this: Personagem, alvo: Personagem): string {
+        let numeroAleatorio = faker.number.int({ min: 0, max: 50 });
+        if (numeroAleatorio < alvo.esquiva) {
+            return `${alvo.nome} esquivou do ataque de ${this.nome}!`;
+        } else {
+            const danoCausado = this.poderDeAtaque;
+            const danoFinal = danoCausado * (alvo.resistencia / 100);
+            alvo.vidaAtual -= danoFinal;
+            return `${this.nome} atacou ${alvo.nome} e causou ${danoFinal} de dano!`;
+        }
+    }
     public get vidaMaxima(): number {
         return this._vidaMaxima;
     }
