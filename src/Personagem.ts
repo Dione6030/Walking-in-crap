@@ -19,7 +19,7 @@ export class Personagem {
         this._vidaMaxima = 0;
         this._vidaAtual = this._vidaMaxima;
     }
-    get nome(): string {
+    public get nome(): string {
         return this._nome;
     }
     set nome(nome: string) {
@@ -28,49 +28,56 @@ export class Personagem {
         }
         this._nome = nome;
     }
-    get forca(): number {
+    public get forca(): number {
         return this._forca;
     }
-    get habilidadeMental(): number {
+    public get habilidadeMental(): number {
         return this._habilidadeMental;
     }
-    get poderDeAtaque(): number {
+    public get poderDeAtaque(): number {
         return this._poderDeAtaque;
     }
-    get esquiva(): number {
+    public get esquiva(): number {
         return this._esquiva;
     }
-    get resistencia(): number {
+    public get resistencia(): number {
         return this._resistencia;
     }
-    get vidaAtual(): number {
+    public get vidaAtual(): number {
         return this._vidaAtual;
     }
-    set vidaAtual(vida: number) {
+    public set vidaAtual(vida: number) {
         if (vida < 0) {
             this._vidaAtual = 0;
         } else {
             this._vidaAtual = vida;
         }
     }
-    get vidaMaxima(): number {
+    public get vidaMaxima(): number {
         return this._vidaMaxima;
     }
 
-    public atacar(this: Personagem, alvo: Personagem): void {
+    public atacar(this: Personagem, alvo: Personagem): string {
         let numeroAleatorio = faker.number.int({ min: 0, max: 50 });
         if (numeroAleatorio < alvo.esquiva) {
-            console.log(`${alvo.nome} esquivou do ataque de ${this.nome}!`);
+            return `${alvo.nome} esquivou do ataque de ${this.nome}!`;
         } else {
             const danoCausado = this.poderDeAtaque;
             alvo.vidaAtual -= danoCausado;
-            console.log(`${this.nome} atacou ${alvo.nome} e causou ${danoCausado} de dano!`);
+            return `${this.nome} atacou ${alvo.nome} e causou ${danoCausado} de dano!`;
         }
     }
 
-    public contraAtacar(this: Personagem, atacante: Personagem): void {}
+    public contraAtacar(this: Personagem, atacante: Personagem): string {
+        const resultadoAtaque = this.atacar(atacante);
+        return `${resultadoAtaque} ${this.nome} contra-atacou ${atacante.nome}!`;
+    }
 
     public aprimorarAtaquePrincipal(): void {}
 
-    regenerarVida(): void {}
+    public regenerarVida(): void {}
+
+    public estaVivo(): boolean {
+        return this.vidaAtual > 0;
+    }
 }
